@@ -70,22 +70,23 @@ class Getspecific extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studys:[]
+      study:[]
     }
   }
 
-    componentDidMount() {
+  componentDidMount() {
       axios.get("http://localhost:9000/api/study/" + this.props.name)
       .then(res => {
-        const studys = res.data;
-        this.setState({ studys });
+        const study = res.data;
+        this.setState({ study });
       })
   };
 
   render() {
+    console.log(this.state.study)
     return (
       <ul>
-      { this.state.studys.map(person => 
+      { this.state.study.map(person => 
      <li>{person.ApplicationNum}, {person.Name}</li>
      )
       }
@@ -113,7 +114,6 @@ export default class App extends React.Component{
   componentDidMount() {
     axios.get("http://localhost:9000/api/todos")
     .then(res => {
-      console.log(res.data)
       const persons = res.data;
       this.setState({ persons });
     })
