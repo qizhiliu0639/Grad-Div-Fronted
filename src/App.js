@@ -49,28 +49,57 @@ import React from 'react';
 // }
 // export default App;
 
-async function Getspecific(props) {
-  try {
-    const study = await axios.get("http://localhost:9000/api/study/" + props.name)
-    console.log(study)
-    return (
-      // <li>{study.data.Name}</li>
-      <li>test</li>
-    )
-  } catch (error) {
-    if (error.response !== undefined && error.response.data.message !== undefined) {
-                message.error(`Get user list error: ${error.response.data.message}`);
-            } else {
-                message.error(`Get user list error: ${error}`);
-            }
+// async function Getspecific(props) {
+//   try {
+//     const study = await axios.get("http://localhost:9000/api/study/" + props.name)
+//     console.log(study)
+//     return (
+//       // <li>{study.data.Name}</li>
+//       <li>test</li>
+//     )
+//   } catch (error) {
+//     if (error.response !== undefined && error.response.data.message !== undefined) {
+//                 message.error(`Get user list error: ${error.response.data.message}`);
+//             } else {
+//                 message.error(`Get user list error: ${error}`);
+//             }
+//   }
+// }
+
+class Getspecific extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      studys:[]
+    }
   }
+
+    componentDidMount() {
+      axios.get("http://localhost:9000/api/study/" + this.props.name)
+      .then(res => {
+        const studys = res.data;
+        this.setState({ studys });
+      })
+  };
+
+  render() {
+    return (
+      <ul>
+      { this.state.studys.map(person => 
+     <li>{person.ApplicationNum}, {person.Name}</li>
+     )
+      }
+    </ul>
+  )
+  }
+
 }
 
-// function Welcome(props) {
-//   const study = axios.get("http://localhost:9000/api/study/" + props.name)
-//   console.log(study)
-//   return <li>Hello, {props.name}</li>;
-// }
+function Welcome(props) {
+  // const study = axios.get("http://localhost:9000/api/study/" + props.name)
+  // console.log(study)
+  return <li>Hello, {props.name}</li>;
+}
 
 export default class App extends React.Component{
   constructor(props) {
@@ -84,15 +113,16 @@ export default class App extends React.Component{
   componentDidMount() {
     axios.get("http://localhost:9000/api/todos")
     .then(res => {
+      console.log(res.data)
       const persons = res.data;
       this.setState({ persons });
     })
 
-    axios.get("http://localhost:9000/api/study")
-    .then(res => {
-      const student = res.data;
-      this.setState({ student });
-    })
+    // axios.get("http://localhost:9000/api/study")
+    // .then(res => {
+    //   const student = res.data;
+    //   this.setState({ student });
+    // })
   };
 
   // componentStudentMount() {
@@ -110,6 +140,7 @@ export default class App extends React.Component{
        <>
        <li>{person.ApplicationNum}, {person.Name}</li>
        <ul>
+        {/* <Welcome name={person.Name} /> */}
         <Getspecific name={person.ApplicationNum} />
         {/* { this.state.student.map( student =>
         <li>{student.Name}</li>
