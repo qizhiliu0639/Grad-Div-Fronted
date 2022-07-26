@@ -88,7 +88,7 @@ class Getspecific extends React.Component {
   };
 
   render() {
-    console.log(this.props.name)
+    console.log(this.state.study)
     return (
       <ul>
       { this.state.study.map(person => 
