@@ -78,16 +78,21 @@ class Getspecific extends React.Component {
       axios.get("http://localhost:9000/api/study/" + this.props.name)
       .then(res => {
         const study = res.data;
-        this.setState({ study });
+        if (Array.isArray(study)) {
+          this.setState({study});
+        } else {
+          this.setState({study:[study]});
+        }
+        
       })
   };
 
   render() {
-    console.log(this.state.study)
+    console.log(this.props.name)
     return (
       <ul>
       { this.state.study.map(person => 
-     <li>{person.ApplicationNum}, {person.Name}</li>
+     <li>{person.ApplicationNum ?? "None"}, {person.Name ?? "None"}</li>
      )
       }
     </ul>
