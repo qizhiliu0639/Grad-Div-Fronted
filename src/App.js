@@ -90,8 +90,8 @@ class Getspecific extends React.Component {
   render() {
     return (
       <ul>
-      { this.state.study.map(person => 
-     <li>{person.ApplicationNum ?? "None"}, {person.Name ?? "None"}</li>
+      { this.state.study.map(studyExp => 
+     <li>{studyExp.Name ?? "None"}, {studyExp.Location}</li>
      )
       }
     </ul>
