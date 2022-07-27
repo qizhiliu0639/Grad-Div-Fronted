@@ -88,7 +88,6 @@ class Getspecific extends React.Component {
   };
 
   render() {
-    console.log(this.state.study)
     return (
       <ul>
       { this.state.study.map(person => 
@@ -144,13 +143,11 @@ export default class App extends React.Component{
         { this.state.persons.map(person => 
        <>
        <li>{person.ApplicationNum}, {person.Name}</li>
-       <ul>
         {/* <Welcome name={person.Name} /> */}
         <Getspecific name={person.ApplicationNum} />
         {/* { this.state.student.map( student =>
         <li>{student.Name}</li>
         )} */}
-       </ul>
        </>)
         }
       </ul>
